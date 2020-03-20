@@ -103,6 +103,76 @@ legend('Cumulative Squared Error','MDL','AIC','AIC_c','location','northwest','Fo
 % model order selection with PACF - RRI1
 [arCoeff,E,rc] = aryule(xRRI1_0mean,10);
 subplot(3,2,2);
-stem((-1).*rc(:,1), '-', 'color', c.darkred, 'linewidth', 1.5); %.*(-1) because rc IS the PACF coefficients scaled by -1
-title('Partial autocorrelation of the NASDAQ financial index', 'FontSize', 15); grid on;
+stem((-1).*rc(:,1), '-', 'color', c.darkred, 'linewidth', 1.5);
+title('Partial autocorrelation of RRI1', 'FontSize', 15); grid on;
+xlabel('k', 'FontSize', 15); ylabel('PACF', 'FontSize', 15);
+
+clear N x
+% model order selection with MDL AIC and AICc - RRI2
+N = length(xRRI2_0mean);
+x = zeros(N, 10);
+for order = 1:10
+    arCoeffN = aryule(xRRI2_0mean,order);
+    x(:,order) = filter(-arCoeffN,1,xRRI2_0mean);
+end
+error = zeros(N, 10);
+for i=1:10
+    error(:,i) = (x(:,i) - xRRI2_0mean(:)).^2;
+end
+cumulativeError = zeros(1,10);
+for i = 1:N
+    cumulativeError(1,:) = cumulativeError(1,:) + error(i,:);
+end
+p=1:1:10;
+MDL = log(cumulativeError(1,:)) + (p(1,:)*log(N))/N;
+AIC = log(cumulativeError(1,:)) + (2*p(1,:))/N;
+AICc = AIC + (2*p(1,:).*(p(1,:)+1))./(N-p(1,:)-1); 
+subplot(3,2,3);hold on; 
+plot(log(cumulativeError), '-k', 'linewidth', 1.5);
+plot(p, MDL, '-', 'color', c.red, 'linewidth', 1.5);
+plot(p, AIC, '-', 'color', c.darkred, 'linewidth', 1.5);
+plot(p, AICc, '-', 'color', c.orange, 'linewidth', 1.5);
+title('Model order selection for RRI2', 'FontSize', 15); grid on;
+xlabel('Model Order (p)', 'FontSize', 15); ylabel('', 'FontSize', 15);
+legend('Cumulative Squared Error','MDL','AIC','AIC_c','location','northwest','FontSize', 12)
+% model order selection with PACF - RRI2
+[arCoeff,E,rc] = aryule(xRRI2_0mean,10);
+subplot(3,2,4);
+stem((-1).*rc(:,1), '-', 'color', c.darkred, 'linewidth', 1.5);
+title('Partial autocorrelation of RRI2', 'FontSize', 15); grid on;
+xlabel('k', 'FontSize', 15); ylabel('PACF', 'FontSize', 15);
+
+clear N x
+% model order selection with MDL AIC and AICc - RRI3
+N = length(xRRI3_0mean);
+x = zeros(N, 10);
+for order = 1:10
+    arCoeffN = aryule(xRRI3_0mean,order);
+    x(:,order) = filter(-arCoeffN,1,xRRI3_0mean);
+end
+error = zeros(N, 10);
+for i=1:10
+    error(:,i) = (x(:,i) - xRRI3_0mean(:)).^2;
+end
+cumulativeError = zeros(1,10);
+for i = 1:N
+    cumulativeError(1,:) = cumulativeError(1,:) + error(i,:);
+end
+p=1:1:10;
+MDL = log(cumulativeError(1,:)) + (p(1,:)*log(N))/N;
+AIC = log(cumulativeError(1,:)) + (2*p(1,:))/N;
+AICc = AIC + (2*p(1,:).*(p(1,:)+1))./(N-p(1,:)-1);
+subplot(3,2,5);hold on; 
+plot(log(cumulativeError), '-k', 'linewidth', 1.5);
+plot(p, MDL, '-', 'color', c.red, 'linewidth', 1.5);
+plot(p, AIC, '-', 'color', c.darkred, 'linewidth', 1.5);
+plot(p, AICc, '-', 'color', c.orange, 'linewidth', 1.5);
+title('Model order selection for RRI3', 'FontSize', 15); grid on;
+xlabel('Model Order (p)', 'FontSize', 15); ylabel('', 'FontSize', 15);
+legend('Cumulative Squared Error','MDL','AIC','AIC_c','location','northwest','FontSize', 12)
+% model order selection with PACF - RRI3
+[arCoeff,E,rc] = aryule(xRRI3_0mean,10);
+subplot(3,2,6);
+stem((-1).*rc(:,1), '-', 'color', c.darkred, 'linewidth', 1.5);
+title('Partial autocorrelation of RRI3', 'FontSize', 15); grid on;
 xlabel('k', 'FontSize', 15); ylabel('PACF', 'FontSize', 15);
