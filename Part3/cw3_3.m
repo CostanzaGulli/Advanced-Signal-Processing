@@ -5,10 +5,11 @@ c = struct('red', [220/255  20/255  60/255], ...
     'orange', [255/255 165/255   0]);
 
 %% sbagliato
+
 load sunspot.dat
 sun = sunspot(:,2);
 M = length(sun);
-P = 3;
+P = 2;
 rxx = xcorr(sun);
 % build x
 x(:,1) = rxx(288:end);
@@ -19,6 +20,6 @@ for k=1:M
        H(k,i) = rxx(k-i+M);
    end
 end
-a = inv(transpose(H)*H)*transpose(H)*x;
+a_lse = inv(transpose(H)*H)*transpose(H)*x;
 
-a_giusto = aryule(sun,2);
+a_yw = aryule(sun,2);

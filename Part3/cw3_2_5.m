@@ -31,7 +31,6 @@ legend('Periodogram', 'From AR(1) model', 'from AR(2) model', 'from AR(10) model
 
 % normalised sunspot data
 subplot(1,2,2); hold on;
-figure; hold on
 sun = detrend(sun, 0);
 [pgmout, pgm_xaxis] = pgm(sun);
 plot(pgm_xaxis, pgmout, '-', 'color', c.yellow, 'linewidth', 1);

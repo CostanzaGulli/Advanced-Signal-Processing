@@ -6,7 +6,7 @@ c = struct('red', [220/255  20/255  60/255], ...
 
 %% 2.5
 load RRI;
-h1 = 60./xRRI1;
+h1 = 60./RRI1;
 
 N = length(h1);
 N_hat = floor(N/10);
@@ -54,9 +54,9 @@ varh1 = var(h_hat1);
 varh2 = var(h_hat2);
 
 %% parts c: autocorrelation 
-xRRI1_0mean = detrend(xRRI1,0);
-xRRI2_0mean = detrend(xRRI2,0);
-xRRI3_0mean = detrend(xRRI3,0);
+xRRI1_0mean = detrend(RRI1,0);
+xRRI2_0mean = detrend(RRI2,0);
+xRRI3_0mean = detrend(RRI3,0);
 [corr1, xaxis1] = xcorr(xRRI1_0mean, 'unbiased');
 [corr2, xaxis2] = xcorr(xRRI2_0mean, 'unbiased');
 [corr3, xaxis3] = xcorr(xRRI3_0mean, 'unbiased');
